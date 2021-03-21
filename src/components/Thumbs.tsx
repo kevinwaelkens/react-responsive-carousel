@@ -35,7 +35,6 @@ interface State {
 
 export default class Thumbs extends Component<Props, State> {
     private itemsWrapperRef?: HTMLDivElement;
-    private itemsListRef?: HTMLUListElement;
     private thumbsRef?: HTMLLIElement[];
 
     static displayName = 'Thumbs';
@@ -94,10 +93,6 @@ export default class Thumbs extends Component<Props, State> {
 
     setItemsWrapperRef = (node: HTMLDivElement) => {
         this.itemsWrapperRef = node;
-    };
-
-    setItemsListRef = (node: HTMLUListElement) => {
-        this.itemsListRef = node;
     };
 
     setThumbsRef = (node: HTMLLIElement, index: number) => {
@@ -288,16 +283,12 @@ export default class Thumbs extends Component<Props, State> {
                             onSwipeStart={this.onSwipeStart}
                             onSwipeEnd={this.onSwipeEnd}
                             style={itemListStyles}
-                            innerRef={this.setItemsListRef}
+                            innerRef={() => {}}
                         >
                             {this.renderItems()}
                         </Swipe>
                     ) : (
-                        <ul
-                            className={klass.SLIDER(false, this.state.swiping)}
-                            ref={(node: HTMLUListElement) => this.setItemsListRef(node)}
-                            style={itemListStyles}
-                        >
+                        <ul className={klass.SLIDER(false, this.state.swiping)} style={itemListStyles}>
                             {this.renderItems()}
                         </ul>
                     )}
