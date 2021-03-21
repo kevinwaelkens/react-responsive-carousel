@@ -167,35 +167,9 @@ export default class Thumbs extends Component<Props, State> {
         });
     };
 
-    onSwipeMove = (delta: { x: number; y: number }) => {
-        let deltaX = delta.x;
+    onSwipeMove = () => {
         if (!this.state.itemSize || !this.itemsWrapperRef) {
             return false;
-        }
-        const leftBoundary = 0;
-
-        const currentPosition = -this.state.firstItem * this.state.itemSize;
-        const lastLeftBoundary = -this.state.visibleItems * this.state.itemSize;
-
-        // prevent user from swiping left out of boundaries
-        if (currentPosition === leftBoundary && deltaX > 0) {
-            deltaX = 0;
-        }
-
-        // prevent user from swiping right out of boundaries
-        if (currentPosition === lastLeftBoundary && deltaX < 0) {
-            deltaX = 0;
-        }
-
-        const wrapperSize = this.itemsWrapperRef.clientWidth;
-        const position = currentPosition + 100 / (wrapperSize / deltaX);
-        // if 3d isn't available we will use left to move
-        if (this.itemsListRef) {
-            ['WebkitTransform', 'MozTransform', 'MsTransform', 'OTransform', 'transform', 'msTransform'].forEach(
-                (prop) => {
-                    this.itemsListRef!.style[prop as any] = CSSTranslate(position, '%', this.props.axis);
-                }
-            );
         }
 
         return true;
